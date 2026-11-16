@@ -299,6 +299,16 @@ em z = 0) e as dimensões usadas pela física (`wingspan_m`, `chord_m`, `gear_he
 - **Verdade**: a folga real é o menor `z − altura do obstáculo` entre todos os pontos da aeronave no
   instante em que cada um cruza o plano do obstáculo.
 
+**Vibração das câmeras.** A pose real de cada câmera treme no tempo: vibração de alta frequência
+(`vibration.rms_deg`, rms por eixo, faixa de 12–45 Hz) mais um balanço lento do mastro proporcional ao vento
+(`vibration.sway_deg_per_ms`). Abaixo, um recorte da `track_a` a 60 fps com `rms_deg: 0.05` (5× o padrão),
+tocando a 1/3 da velocidade: o fundo inteiro se desloca ~3 px (σ) de um quadro para o outro.
+
+![Recorte da track_a com vibração de 0,05° rms, em câmera lenta](docs/img/vibracao_rms050.gif)
+
+Medindo esse deslocamento do fundo nos vídeos e comparando com o que a pose verdadeira da câmera prevê, os dois
+coincidem (correlação 1,00; diferença ≤ 0,2 px a 0,05°) e a amplitude escala linearmente com `rms_deg`.
+
 ## Os algoritmos em detalhe
 
 Todos partem de segmentação de movimento contra o fundo (mediana temporal), com registro sub-pixel
